@@ -1,0 +1,7 @@
+<h1><%= room.title %></h1>
+
+<h2>Events</h2>
+
+<ol>
+  <%= render partial: 'event', collection: room.events %>
+</ol>
