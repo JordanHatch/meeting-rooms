@@ -1,4 +1,4 @@
-# Meeting Rooms
+# Meeting Rooms [![Build Status](https://travis-ci.org/JordanHatch/meeting-rooms.png?branch=master)](https://travis-ci.org/JordanHatch/meeting-rooms)
 
 This is a work-in progress attempt at rebuilding the service behind the meeting
 room dashboards at GDS.
