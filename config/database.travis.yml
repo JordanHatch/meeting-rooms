@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  database: meeting_rooms_test
+  min_messages: warning
+  username: postgres
