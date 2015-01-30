@@ -18,8 +18,6 @@ class ApiFormattedEvent
 private
 
   def self.attributes_from_hash(hash)
-    puts hash.inspect
-
     {
       source_id: hash['id'],
       title: hash['summary'],
