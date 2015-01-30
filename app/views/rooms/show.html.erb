@@ -5,3 +5,7 @@
 <ol>
   <%= render partial: 'event', collection: room.events %>
 </ol>
+
+<ul>
+  <li><%= link_to 'Edit room', edit_room_path(room) %></li>
+</ul>
