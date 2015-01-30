@@ -42,14 +42,28 @@ RSpec.describe EventImporter do
   end
 
   describe '#import' do
-    it 'creates Event objects for each event returned from the Calendar API' do
+    before do
       expect(mock_calendar_api).to receive(:events).with(
         hash_including(calendar_id: room.calendar_id)
       ).and_return(events)
+    end
 
-      importer = EventImporter.new(calendar_id: room.calendar_id, room_id: room.id)
+    it 'creates Event objects for each event returned from the Calendar API' do
+      importer = EventImporter.new(room: room)
 
       expect{ importer.import }.to change{ room.events.count }.by(2)
+    end
+
+    it 'updates an existing Event if it already exists for the room' do
+      existing_event = create(:event, source_id: 'event-1@google.com',
+                                      title: 'An old title',
+                                      room: room)
+
+      importer = EventImporter.new(room: room)
+      expect{ importer.import }.to change{ room.events.count }.by(1)
+
+      existing_event.reload
+      expect(existing_event.title).to eq('Important meeting')
     end
   end
 

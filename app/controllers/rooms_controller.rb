@@ -22,8 +22,7 @@ class RoomsController < ApplicationController
   end
 
   def import
-    importer = EventImporter.new(calendar_id: room.calendar_id,
-                                 room_id: room.id)
+    importer = EventImporter.new(room: room)
     importer.import
 
     flash.notice = 'Import complete'

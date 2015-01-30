@@ -58,8 +58,7 @@ RSpec.describe RoomsController, :type => :controller do
 
     it 'initiates an import of events for the room' do
       expect(EventImporter).to receive(:new).with(
-        calendar_id: room.calendar_id,
-        room_id: room.id
+        room: room
       ).and_return(mock_importer)
 
       post :import, id: room

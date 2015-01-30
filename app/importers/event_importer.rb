@@ -1,22 +1,31 @@
 class EventImporter
-  def initialize(calendar_id:, room_id:)
-    @calendar_id = calendar_id
-    @room_id = room_id
+  def initialize(room:)
+    @room = room
   end
 
   def import
     events.each do |response|
-      event = ApiFormattedEvent.build_from_response(response).to_event_instance
-      event.room_id = room_id
-      event.save
+      create_or_update_event(response)
     end
   end
 
 private
-  attr_reader :calendar_id, :room_id
+  attr_reader :room
+
+  def create_or_update_event(response)
+    parsed_event = ApiFormattedEvent.build_from_response(response)
+
+    event = room.events.find_or_initialize_by(source_id: parsed_event.source_id)
+    event.assign_attributes(parsed_event.updateable_attributes)
+    event.save
+  end
 
   def events
     calendar_api.events(calendar_id: calendar_id)
+  end
+
+  def calendar_id
+    room.calendar_id
   end
 
   def calendar_api
