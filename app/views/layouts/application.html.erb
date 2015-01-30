@@ -9,6 +9,12 @@
 <body>
 
 <main>
+  <% if flash.any? %>
+    <% flash.each do |key, message| %>
+      <div class="message message-<%= key %>"><%= message %></div>
+    <% end %>
+  <% end %>
+
   <%= yield %>
 </main>
 
