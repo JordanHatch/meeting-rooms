@@ -52,4 +52,32 @@ RSpec.describe RoomsController, :type => :controller do
     end
   end
 
+  describe '#import' do
+    let(:room) { create(:room) }
+    let(:mock_importer) { double('Importer', import: true) }
+
+    it 'initiates an import of events for the room' do
+      expect(EventImporter).to receive(:new).with(
+        calendar_id: room.calendar_id,
+        room_id: room.id
+      ).and_return(mock_importer)
+
+      post :import, id: room
+    end
+
+    it 'redirects to the room path' do
+      expect(EventImporter).to receive(:new).and_return(mock_importer)
+
+      post :import, id: room
+      expect(subject).to redirect_to(action: :show, id: room)
+    end
+
+    it 'sets a success message' do
+      expect(EventImporter).to receive(:new).and_return(mock_importer)
+
+      post :import, id: room
+      expect(controller.flash.notice).to match(/complete/)
+    end
+  end
+
 end

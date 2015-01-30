@@ -21,6 +21,15 @@ class RoomsController < ApplicationController
     end
   end
 
+  def import
+    importer = EventImporter.new(calendar_id: room.calendar_id,
+                                 room_id: room.id)
+    importer.import
+
+    flash.notice = 'Import complete'
+    redirect_to room_path
+  end
+
 private
   def room_params
     params.require(:room).permit(:title, :short_title, :calendar_id)
