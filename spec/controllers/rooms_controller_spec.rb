@@ -3,12 +3,7 @@ require 'rails_helper'
 RSpec.describe RoomsController, :type => :controller do
 
   describe '#create' do
-    let(:room_attributes) {
-      {
-        title: 'Situation room',
-        short_title: 'SR',
-      }
-    }
+    let(:room_attributes) { attributes_for(:room) }
 
     it 'redirects to the rooms list' do
       post :create, room: room_attributes

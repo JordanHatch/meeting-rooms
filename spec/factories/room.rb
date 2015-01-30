@@ -5,6 +5,9 @@ FactoryGirl.define do
       "Meeting Room #{n}"
     }
     sequence(:short_title)
+    sequence(:calendar_id) {|n|
+      "calendar-#{n}@google.com"
+    }
   end
 
 end
