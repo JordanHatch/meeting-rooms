@@ -8,9 +8,12 @@ class ApiFormattedEvent
     self.new attributes_from_hash(response.to_hash)
   end
 
-  def to_event_instance
-    # In future, this could find an existing event matching the UID instead
-    Event.new(attributes)
+  def updateable_attributes
+    attributes.except(:source_id)
+  end
+
+  def source_id
+    attributes[:source_id]
   end
 
   attr_reader :attributes

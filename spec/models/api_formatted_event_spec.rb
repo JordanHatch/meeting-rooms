@@ -46,4 +46,19 @@ RSpec.describe ApiFormattedEvent do
     end
   end
 
+  describe '#updateable_attributes' do
+    it 'returns a hash of core attributes' do
+      atts = ApiFormattedEvent.build_from_response(response).updateable_attributes
+
+      expect(atts).to be_a(Hash)
+      expect(atts[:title]).to eq('Important meeting')
+    end
+
+    it 'excludes the source_id field' do
+      event = ApiFormattedEvent.build_from_response(response)
+
+      expect(event.updateable_attributes).to_not have_key(:source_id)
+    end
+  end
+
 end
