@@ -1,3 +1,4 @@
+ruby '2.1.5'
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
@@ -16,6 +17,11 @@ gem 'formtastic'
 gem 'timecop'
 
 gem 'puma'
+gem 'foreman'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   gem 'byebug'
