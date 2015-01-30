@@ -1,8 +1,9 @@
 class RoomsController < ApplicationController
   expose(:rooms)
-  expose(:room, attributes: :room_params)
+  expose(:room)
 
   def create
+    room.attributes = room_params
     if room.save
       flash.notice = 'Room created'
       redirect_to rooms_path
