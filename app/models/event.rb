@@ -7,4 +7,6 @@ class Event < ActiveRecord::Base
   scope :future, -> {
     where(['start_at > ?', Time.now])
   }
+
+  default_scope { order('start_at ASC') }
 end
