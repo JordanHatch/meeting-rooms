@@ -53,7 +53,7 @@ RSpec.describe CalendarApi do
         hash_including(parameters: {
           'calendarId' => 'example',
           'orderBy' => 'startTime',
-          'timeMin' => '2015-01-01T00:00:00+00:00',
+          'timeMin' => '2014-12-31T00:00:00+00:00',
           'timeMax' => '2015-01-02T00:00:00+00:00', # 24 hours after the frozen time
           'singleEvents' => true,
         })

@@ -12,8 +12,8 @@ class CalendarApi
   def events(calendar_id:)
     execute(:api_method => service.events.list, :parameters => {
       'calendarId' => calendar_id,
-      'timeMin' => Time.now.to_datetime.to_s,
-      'timeMax' => (Time.now + 24.hours).to_datetime.to_s,
+      'timeMin' => 24.hours.ago.to_datetime.to_s,
+      'timeMax' => 24.hours.from_now.to_datetime.to_s,
       'orderBy' => 'startTime',
       'singleEvents' => true
     }).data.items
