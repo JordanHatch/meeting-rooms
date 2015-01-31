@@ -30,6 +30,16 @@ class RoomsController < ApplicationController
   end
 
 private
+  def rooms_in_use
+    Room.in_use
+  end
+  helper_method :rooms_in_use
+
+  def rooms_not_in_use
+    Room.not_in_use
+  end
+  helper_method :rooms_not_in_use
+
   def room_params
     params.require(:room).permit(:title, :short_title, :calendar_id)
   end

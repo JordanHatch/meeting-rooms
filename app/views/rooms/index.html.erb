@@ -1,9 +1,9 @@
 <h1>Rooms</h1>
 
-<ul>
-  <% rooms.each do |room| %>
-    <li><%= link_to room.title, room_path(room) %></li>
-  <% end %>
-</ul>
+<h2>In use</h2>
 
-<%= link_to 'Add a new room', new_room_path(room) %>
+<%= render partial: 'room_list', locals: { rooms: rooms_in_use } %>
+
+<h2>Not in use</h2>
+
+<%= render partial: 'room_list', locals: { rooms: rooms_not_in_use } %>
