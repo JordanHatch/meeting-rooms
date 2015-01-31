@@ -11,6 +11,25 @@ FactoryGirl.define do
     start_at { Time.now }
     end_at { Time.now + 30.minutes }
     room
+
+    trait :current do
+      start_at { Time.now }
+      end_at { 30.minutes.from_now }
+    end
+
+    trait :past do
+      start_at { 1.hour.ago }
+      end_at { 30.minutes.ago }
+    end
+
+    trait :future do
+      start_at { 30.minutes.from_now }
+      end_at { 1.hour.from_now }
+    end
+
+    factory :current_event, traits: [:current]
+    factory :past_event, traits: [:past]
+    factory :future_event, traits: [:future]
   end
 
 end
