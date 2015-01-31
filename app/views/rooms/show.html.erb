@@ -2,8 +2,14 @@
 
 <h2>Events</h2>
 
+<ol class="events current-events">
+  <%= render partial: 'event', collection: room.current_events %>
+</ol>
+
+<h2>Future events</h2>
+
 <ol class="events">
-  <%= render partial: 'event', collection: room.events %>
+  <%= render partial: 'event', collection: room.events.future %>
 </ol>
 
 <ul class="actions">
