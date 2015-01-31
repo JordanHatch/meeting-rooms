@@ -4,4 +4,7 @@ class Event < ActiveRecord::Base
   scope :current, -> {
     where(['start_at < ? AND end_at > ?', Time.now, Time.now])
   }
+  scope :future, -> {
+    where(['start_at > ?', Time.now])
+  }
 end

@@ -22,4 +22,23 @@ RSpec.describe Event, :type => :model do
     end
   end
 
+  describe '.future' do
+    before do
+      Timecop.freeze
+    end
+
+    it 'returns events where start_at is after now' do
+      events = [
+        create(:future_event),
+        create(:current_event),
+        create(:past_event),
+      ]
+
+      events = Event.future
+
+      expect(events.size).to eq(1)
+      expect(events.first).to eq(events.first)
+    end
+  end
+
 end
