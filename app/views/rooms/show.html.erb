@@ -1,16 +1,22 @@
 <h1><%= room.title %></h1>
 
-<h2>Events</h2>
+<% if room.current_events.any? %>
+<section class="events">
+  <h1>Current event</h1>
 
-<ol class="events current-events">
-  <%= render partial: 'event', collection: room.current_events %>
-</ol>
+  <ol class="event-list">
+    <%= render partial: 'event', collection: room.current_events %>
+  </ol>
+</section>
+<% end %>
 
-<h2>Future events</h2>
+<section class="events">
+  <h1>Coming up</h1>
 
-<ol class="events">
-  <%= render partial: 'event', collection: room.events.future %>
-</ol>
+  <ol class="event-list">
+    <%= render partial: 'event', collection: room.events.future %>
+  </ol>
+</section>
 
 <ul class="actions">
   <li><%= link_to 'Edit room', edit_room_path(room) %></li>

@@ -1,13 +1,27 @@
 .events {
-  margin: 25px 0;
-  font-size: 15px;
+  margin: 40px 0;
+  overflow: auto;
 
-  h2 {
+  h1 {
+    float: left;
+    width: 33%;
+
     margin: 2px 0;
     font-size: 19px;
   }
 
-  li {
-    margin: 16px 0;
+  .event-list {
+    float: right;
+    width: 66%;
+    font-size: 17px;
+
+    h2 {
+      font-size: 19px;
+      margin: 0 0 4px;
+    }
+
+    li {
+      margin: 0 0 16px;
+    }
   }
 }

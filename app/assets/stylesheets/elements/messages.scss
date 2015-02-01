@@ -1,0 +1,15 @@
+.message {
+  background: #ededed;
+  border-radius: 2px;
+  font-size: 15px;
+
+  margin: 0 0 20px;
+  padding: 9px;
+
+  &.message-notice {
+    background: #f8f5ad;
+  }
+  &.message-alert {
+    background: #ee9494;
+  }
+}

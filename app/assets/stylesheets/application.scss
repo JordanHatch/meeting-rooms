@@ -7,4 +7,9 @@
 
 @import 'formtastic';
 
+@import 'elements/buttons';
+@import 'elements/forms';
+@import 'elements/messages';
+
 @import 'views/events';
+@import 'views/rooms';

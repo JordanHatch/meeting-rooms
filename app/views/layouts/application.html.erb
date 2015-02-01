@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<header>
+  <h1>
+    <%= link_to "Meeting Rooms", root_path %>
+  </h1>
+</header>
+
 <main>
   <% if flash.any? %>
     <% flash.each do |key, message| %>

@@ -1,0 +1,13 @@
+.formtastic {
+  .stringish input {
+    padding: 6px 8px;
+  }
+
+  .actions {
+    margin-top: 20px;
+    
+    a {
+      @extend .button;
+    }
+  }
+}

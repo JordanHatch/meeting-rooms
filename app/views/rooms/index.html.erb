@@ -1,13 +1,15 @@
-<h1>Rooms</h1>
+<section class="rooms-index">
+  <div class="room-list">
+    <h2>Not in use</h2>
+    <%= render partial: 'room_list', locals: { rooms: rooms_not_in_use } %>
+  </div>
 
-<h2>In use</h2>
+  <div class="room-list">
+    <h2>In use</h2>
+    <%= render partial: 'room_list', locals: { rooms: rooms_in_use } %>
+  </div>
 
-<%= render partial: 'room_list', locals: { rooms: rooms_in_use } %>
-
-<h2>Not in use</h2>
-
-<%= render partial: 'room_list', locals: { rooms: rooms_not_in_use } %>
-
-<ul class="actions">
-  <li><%= link_to 'Add a new room', new_room_path(room) %></li>
-</ul>
+  <ul class="actions">
+    <li><%= link_to 'Add a new room', new_room_path(room) %></li>
+  </ul>
+</section>

@@ -1,0 +1,49 @@
+.rooms-index {
+  overflow: auto;
+
+  h1 {
+    float: left;
+    width: 33%;
+  }
+
+  h2 {
+    color: #666;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .rooms {
+    float: right;
+    width: 66%;
+  }
+
+  .room-list {
+    margin: 0 0 20px;
+  }
+
+  li.room {
+    margin: 5px 0;
+    font-size: 15px;
+
+    a {
+      text-decoration: none;
+      color: #000;
+      padding: 12px;
+      display: block;
+      background: #f6f6f6;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+
+      &:hover {
+        border-color: #aaa;
+        background: #f0f0f0;
+      }
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 21px;
+    }
+  }
+}
