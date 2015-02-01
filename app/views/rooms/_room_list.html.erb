@@ -1,10 +1,16 @@
-<ul>
-  <% rooms.each do |room| %>
-    <li class="room">
-      <%= link_to room_path(room) do %>
-        <h3><%= room.title %></h3>
-        <span class="in-use"><%= room.in_use? ? "In use" : "Not in use" %></span>
+<% if rooms.any? %>
+  <div class="room-list">
+    <h2><%= label %></h2>
+
+    <ul>
+      <% rooms.each do |room| %>
+        <li class="room">
+          <%= link_to room_path(room) do %>
+            <h3><%= room.title %></h3>
+            <span class="in-use"><%= room.in_use? ? "In use" : "Not in use" %></span>
+          <% end %>
+        </li>
       <% end %>
-    </li>
-  <% end %>
-</ul>
+    </ul>
+  </div>
+<% end %>
