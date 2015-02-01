@@ -1,11 +1,17 @@
 class ApiFormattedEvent
 
-  def initialize(attributes)
-    @attributes = attributes
+  def initialize(response)
+    @response = response
   end
 
-  def self.build_from_response(response)
-    self.new attributes_from_hash(response.to_hash)
+  def attributes
+    {
+      source_id: response['id'],
+      title: response['summary'],
+      creator: response['creator']['displayName'],
+      start_at: format_time(response['start']),
+      end_at: format_time(response['end']),
+    }
   end
 
   def updateable_attributes
@@ -16,25 +22,20 @@ class ApiFormattedEvent
     attributes[:source_id]
   end
 
-  attr_reader :attributes
 
 private
 
-  def self.attributes_from_hash(hash)
-    {
-      source_id: hash['id'],
-      title: hash['summary'],
-      creator: hash['creator']['displayName'],
-      start_at: format_time(hash['start']),
-      end_at: format_time(hash['end']),
-    }
-  end
+  attr_reader :response
 
-  def self.format_time(time_hash)
-    if time_hash['dateTime'].present?
-      Time.parse(time_hash['dateTime'])
-    elsif time_hash['date'].present?
-      Time.parse(time_hash['date'])
+  # Expects an instance of Google::APIClient::Schema::Calendar::V3::EventDateTime
+  #
+  def format_time(event_date_time)
+    hash = event_date_time.to_hash
+
+    if hash['dateTime'].present?
+      Time.parse(hash['dateTime'])
+    elsif hash['date'].present?
+      Time.parse(hash['date'])
     end
   end
 

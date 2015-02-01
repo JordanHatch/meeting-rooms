@@ -13,7 +13,7 @@ private
   attr_reader :room
 
   def create_or_update_event(response)
-    parsed_event = ApiFormattedEvent.build_from_response(response)
+    parsed_event = ApiFormattedEvent.new(response)
 
     event = room.events.find_or_initialize_by(source_id: parsed_event.source_id)
     event.assign_attributes(parsed_event.updateable_attributes)

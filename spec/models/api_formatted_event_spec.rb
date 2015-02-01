@@ -19,9 +19,9 @@ RSpec.describe ApiFormattedEvent do
     }
   }
 
-  describe '.build_from_hash' do
+  describe '.new' do
     it 'builds a hash of Event attributes from an API response' do
-      event = ApiFormattedEvent.build_from_response(response)
+      event = ApiFormattedEvent.new(response)
       expect(event.attributes).to eq({
         source_id: 'event-1',
         title: 'Important meeting',
@@ -32,7 +32,7 @@ RSpec.describe ApiFormattedEvent do
     end
 
     it 'converts all-day events into 24 hour events' do
-      event = ApiFormattedEvent.build_from_response(response.merge(
+      event = ApiFormattedEvent.new(response.merge(
         'start' => {
           'date' => '2015-01-01',
         },
@@ -48,14 +48,14 @@ RSpec.describe ApiFormattedEvent do
 
   describe '#updateable_attributes' do
     it 'returns a hash of core attributes' do
-      atts = ApiFormattedEvent.build_from_response(response).updateable_attributes
+      atts = ApiFormattedEvent.new(response).updateable_attributes
 
       expect(atts).to be_a(Hash)
       expect(atts[:title]).to eq('Important meeting')
     end
 
     it 'excludes the source_id field' do
-      event = ApiFormattedEvent.build_from_response(response)
+      event = ApiFormattedEvent.new(response)
 
       expect(event.updateable_attributes).to_not have_key(:source_id)
     end
