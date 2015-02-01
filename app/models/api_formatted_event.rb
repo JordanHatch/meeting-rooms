@@ -22,6 +22,10 @@ class ApiFormattedEvent
     attributes[:source_id]
   end
 
+  def declined?
+    calendar_attendee &&
+      calendar_attendee['responseStatus'] == 'declined'
+  end
 
 private
 
@@ -37,6 +41,16 @@ private
     elsif hash['date'].present?
       Time.parse(hash['date'])
     end
+  end
+
+  def calendar_attendee
+    attendees.find {|attendee|
+      attendee['self'] == true
+    }
+  end
+
+  def attendees
+    response['attendees'] || []
   end
 
 end

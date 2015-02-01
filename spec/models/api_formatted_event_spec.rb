@@ -61,4 +61,45 @@ RSpec.describe ApiFormattedEvent do
     end
   end
 
+  describe '#declined?' do
+    it 'returns true if the attendees list contains the calendar with a declined response' do
+      event = ApiFormattedEvent.new(response.merge(
+        'attendees' => [{
+          'self' => true,
+          'responseStatus' => 'declined',
+        }],
+      ))
+
+      expect(event).to be_declined
+    end
+
+    it 'returns false if the attendees list contains the calendar with another response' do
+      event = ApiFormattedEvent.new(response.merge(
+        'attendees' => [{
+          'self' => true,
+          'responseStatus' => 'accepted',
+        }],
+      ))
+
+      expect(event).to_not be_declined
+    end
+
+    it 'returns false if there is no attendee list' do
+      event = ApiFormattedEvent.new(response.merge('attendees' => nil))
+
+      expect(event).to_not be_declined
+    end
+
+    it 'returns false if the calendar is not present in the attendee list' do
+      event = ApiFormattedEvent.new(response.merge(
+        'attendees' => [
+          { 'responseStatus' => 'accepted' },
+          { 'responseStatus' => 'accepted', 'self' => false },
+        ],
+      ))
+
+      expect(event).to_not be_declined
+    end
+  end
+
 end
