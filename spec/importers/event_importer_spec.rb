@@ -65,6 +65,32 @@ RSpec.describe EventImporter do
       existing_event.reload
       expect(existing_event.title).to eq('Important meeting')
     end
+
+    it 'ignores an event if the calendar has declined' do
+      events.push({
+        'id' => 'event-3@google.com',
+        'summary' => 'Declined event',
+        'creator' => {
+          'email' => 'toby@whitehouse.gov',
+          'displayName' => 'Toby Ziegler',
+        },
+        'start' => {
+          'dateTime' => '2015-01-01T12:00:00+01:00',
+        },
+        'end' => {
+          'dateTime' => '2015-01-01T13:00:00+01:00',
+        },
+        'attendees' => [{
+          'self' => true,
+          'responseStatus' => 'declined',
+        }],
+      })
+
+      importer = EventImporter.new(room: room)
+      importer.import
+
+      expect(Event.where(source_id: 'event-3@google.com')).to be_empty
+    end
   end
 
 end
