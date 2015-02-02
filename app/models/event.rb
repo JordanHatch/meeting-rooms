@@ -9,4 +9,6 @@ class Event < ActiveRecord::Base
   }
 
   default_scope { order('start_at ASC') }
+
+  validates :start_at, :end_at, presence: true
 end

@@ -37,6 +37,20 @@ RSpec.describe Event, :type => :model do
     expect(event).to be_persisted
   end
 
+  it 'is invalid without a start_at time' do
+    event = Event.new(valid_attributes.merge(start_at: nil))
+
+    expect(event).to_not be_valid
+    expect(event.errors).to have_key(:start_at)
+  end
+
+  it 'is invalid without an end_at time' do
+    event = Event.new(valid_attributes.merge(end_at: nil))
+
+    expect(event).to_not be_valid
+    expect(event.errors).to have_key(:end_at)
+  end
+
   describe '.current' do
     before do
       Timecop.freeze
