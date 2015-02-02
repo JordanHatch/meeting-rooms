@@ -27,6 +27,16 @@ RSpec.describe Event, :type => :model do
     expect(event).to be_private
   end
 
+  it 'can be created with an empty title' do
+    event = Event.new(
+      valid_attributes.merge(title: nil)
+    )
+    expect(event).to be_valid
+
+    event.save
+    expect(event).to be_persisted
+  end
+
   describe '.current' do
     before do
       Timecop.freeze
