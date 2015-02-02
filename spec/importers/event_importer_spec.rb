@@ -91,6 +91,15 @@ RSpec.describe EventImporter do
 
       expect(Event.where(source_id: 'event-3@google.com')).to be_empty
     end
+
+    it 'deletes existing events which are not returned from the API' do
+      create(:event, source_id: 'event-foo@example.org', room: room)
+
+      EventImporter.new(room: room).import
+
+      matching_events = Event.where(source_id: 'event-foo@example.org')
+      expect(matching_events).to be_empty
+    end
   end
 
 end
