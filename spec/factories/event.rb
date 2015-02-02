@@ -10,6 +10,8 @@ FactoryGirl.define do
     creator "Jed Bartlet"
     start_at { Time.now }
     end_at { Time.now + 30.minutes }
+    private false
+
     room
 
     trait :current do

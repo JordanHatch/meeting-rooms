@@ -2,6 +2,31 @@ require 'rails_helper'
 
 RSpec.describe Event, :type => :model do
 
+  let(:valid_attributes) {
+    {
+      source_id: 'example@google.com',
+      title: 'An event',
+      creator: 'CJ Cregg',
+      start_at: Time.now,
+      end_at: 30.minutes.from_now,
+      room_id: 1,
+    }
+  }
+
+  it 'is not private by default' do
+    event = Event.create(valid_attributes)
+
+    expect(event.private).to eq(false)
+    expect(event).to_not be_private
+  end
+
+  it 'can be created as private' do
+    event = Event.create(valid_attributes.merge(private: true))
+
+    expect(event.private).to eq(true)
+    expect(event).to be_private
+  end
+
   describe '.current' do
     before do
       Timecop.freeze
