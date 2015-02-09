@@ -8,7 +8,7 @@ class ApiFormattedEvent
     {
       source_id: response['id'],
       title: response['summary'],
-      creator: response['creator']['displayName'],
+      creator: creator,
       start_at: format_time(response['start']),
       end_at: format_time(response['end']),
     }
@@ -51,6 +51,12 @@ private
 
   def attendees
     response['attendees'] || []
+  end
+
+  def creator
+    if (details = response['creator'])
+      details['displayName']
+    end
   end
 
 end
