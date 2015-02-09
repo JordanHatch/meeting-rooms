@@ -79,4 +79,30 @@ RSpec.describe RoomsController, :type => :controller do
     end
   end
 
+  describe '#import_all' do
+    let(:mock_importer) { double('Importer', import: true) }
+
+    before do
+      allow(BulkEventImporter).to receive(:new).and_return(mock_importer)
+    end
+
+    it 'initiates the BulkEventImporter' do
+      expect(mock_importer).to receive(:import)
+
+      post :import_all
+    end
+
+    it 'redirects to the room list' do
+      post :import_all
+
+      expect(subject).to redirect_to(action: :index)
+    end
+
+    it 'sets a success message' do
+      post :import_all
+
+      expect(controller.flash.notice).to match(/complete/)
+    end
+  end
+
 end

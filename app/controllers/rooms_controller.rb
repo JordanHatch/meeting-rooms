@@ -29,6 +29,14 @@ class RoomsController < ApplicationController
     redirect_to room_path
   end
 
+  def import_all
+    importer = BulkEventImporter.new
+    importer.import
+
+    flash.notice = 'Import complete'
+    redirect_to rooms_path
+  end
+
 private
   def rooms_in_use
     Room.in_use
