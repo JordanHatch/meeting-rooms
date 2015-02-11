@@ -38,6 +38,11 @@ class RoomsController < ApplicationController
   end
 
 private
+  def presented_room
+    RoomPresenter.new(room)
+  end
+  helper_method :presented_room
+
   def rooms_in_use
     Room.in_use
   end
