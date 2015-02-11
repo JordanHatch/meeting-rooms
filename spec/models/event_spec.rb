@@ -69,6 +69,14 @@ RSpec.describe Event, :type => :model do
       expect(events.size).to eq(1)
       expect(events.first).to eq(included_event)
     end
+
+    it 'includes events which are starting at the current time' do
+      included_event = create(:event, start_at: Time.now,
+                                      end_at: 10.minutes.from_now)
+
+      events = Event.current
+      expect(events.first).to eq(included_event)
+    end
   end
 
   describe '.future' do
