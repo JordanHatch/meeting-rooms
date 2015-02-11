@@ -10,4 +10,8 @@ class Room < ActiveRecord::Base
   def in_use?
     current_events.any?
   end
+
+  def current_and_future_events
+    current_events + events.future
+  end
 end
