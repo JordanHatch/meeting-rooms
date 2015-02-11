@@ -6,6 +6,10 @@ RSpec.describe Gap, :type => :model do
     Gap.new(start_at: Time.now, end_at: 10.minutes.from_now)
   }
 
+  before do
+    Timecop.freeze
+  end
+
   describe '#<=>' do
     it 'is equal to another Gap if the start_at and end_at values are the same' do
       other = Gap.new(start_at: subject.start_at, end_at: subject.end_at)
