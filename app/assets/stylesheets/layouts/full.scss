@@ -1,0 +1,33 @@
+body.full {
+
+  header, main {
+    padding: 40px 30px;
+  }
+
+  header {
+    width: 25%;
+    float: left;
+
+    h1 {
+      margin: 0;
+      font-size: 21px;
+
+      a {
+        color: #000;
+        font-weight: normal;
+        display: inline-block;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  main {
+    width: 75%;
+    float: right;
+  }
+
+}
