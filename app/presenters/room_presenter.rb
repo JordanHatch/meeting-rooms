@@ -31,7 +31,9 @@ private
   end
 
   def insert_initial_gap(list)
-    return unless list.first.start_at > Time.now
+    unless list.any? && list.first.start_at > Time.now
+      return
+    end
 
     list.unshift Gap.new(
       start_at: Time.now,

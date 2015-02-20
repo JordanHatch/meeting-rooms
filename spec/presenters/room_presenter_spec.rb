@@ -65,6 +65,10 @@ RSpec.describe RoomPresenter do
 
       expect(subject.events_with_gaps).to contain_exactly(*expected)
     end
+
+    it 'returns an empty array if there are no events' do
+      expect(subject.events_with_gaps).to be_empty
+    end
   end
 
 end
