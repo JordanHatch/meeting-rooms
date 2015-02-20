@@ -7,10 +7,10 @@ class Gap
   end
 
   attr_reader :start_at, :end_at
-  
+
   def <=>(other)
-    start_at <=> other.start_at &&
-      end_at <=> other.end_at
+    start_at.to_i <=> other.start_at.to_i &&
+      end_at.to_i <=> other.end_at.to_i
   end
 
   def title

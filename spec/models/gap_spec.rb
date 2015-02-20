@@ -7,7 +7,9 @@ RSpec.describe Gap, :type => :model do
   }
 
   before do
-    Timecop.freeze
+    Timecop.freeze(
+      Time.now.beginning_of_hour
+    )
   end
 
   describe '#<=>' do
@@ -19,6 +21,11 @@ RSpec.describe Gap, :type => :model do
     it 'is not equal to another Gap if start_at or end_at are different' do
       other = Gap.new(start_at: 10.minutes.ago, end_at: 5.minutes.from_now)
       expect(subject).to_not eq(other)
+    end
+
+    it 'ignores fractional differences in seconds' do
+      other = Gap.new(start_at: (subject.start_at + 0.25), end_at: (subject.end_at + 0.5))
+      expect(subject).to eq(other)
     end
   end
 
