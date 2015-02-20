@@ -37,6 +37,10 @@ class RoomsController < ApplicationController
     redirect_to rooms_path
   end
 
+  def dashboard
+    render layout: 'dashboard'
+  end
+
 private
   def presented_room
     RoomPresenter.new(room)
