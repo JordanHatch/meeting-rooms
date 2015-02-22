@@ -4,6 +4,9 @@
   }
 
   .actions {
+    @extend .actions;
+    @extend .actions-block;
+
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 20px;

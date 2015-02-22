@@ -1,0 +1,24 @@
+.actions {
+  ul {
+    li {
+      display: inline;
+      font-size: 14px;
+      margin: 0 0 0 25px;
+
+      a {
+        color: #888;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &.actions-block {
+    background: #f8f8f8;
+    padding: 20px;
+    margin: 40px 0;
+
+    li a {
+      @extend .button;
+    }
+  }
+}

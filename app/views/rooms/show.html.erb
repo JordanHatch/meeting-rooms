@@ -1,14 +1,21 @@
-<h1><%= room.title %></h1>
+<article class="room">
+  <header>
+    <h1><%= room.title %></h1>
 
-<section class="events">
-  <h1>Coming up</h1>
+    <nav class="actions actions-resource">
+      <ul>
+        <li><%= link_to 'Full screen view', dashboard_room_path(room) %></li>
+        <li><%= link_to 'Import events', import_room_path(room), method: :post %></li>
+        <li><%= link_to 'Edit details', edit_room_path(room) %></li>
+      </ul>
+    </nav>
+  </header>
 
-  <ol class="event-list">
-    <%= render partial: 'event', collection: presented_room.events_with_gaps %>
-  </ol>
-</section>
+  <section class="events">
+    <h1>Coming up</h1>
 
-<ul class="actions">
-  <li><%= link_to 'Edit room', edit_room_path(room) %></li>
-  <li><%= link_to 'Import events', import_room_path(room), method: :post %></li>
-</ul>
+    <ol class="event-list">
+      <%= render partial: 'event', collection: presented_room.events_with_gaps %>
+    </ol>
+  </section>
+</article>

@@ -10,9 +10,10 @@
 @import 'layouts/full';
 @import 'layouts/dashboard';
 
+@import 'elements/actions';
 @import 'elements/buttons';
 @import 'elements/forms';
 @import 'elements/messages';
 
-@import 'views/events';
+@import 'views/room';
 @import 'views/rooms';

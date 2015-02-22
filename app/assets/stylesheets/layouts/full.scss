@@ -1,10 +1,12 @@
 body.full {
 
-  header, main {
+  .wrap-spacing {
     padding: 40px 30px;
   }
 
-  header {
+  > header {
+    @extend .wrap-spacing;
+
     width: 25%;
     float: left;
 
@@ -26,6 +28,8 @@ body.full {
   }
 
   main {
+    @extend .wrap-spacing;
+
     width: 75%;
     float: right;
   }
