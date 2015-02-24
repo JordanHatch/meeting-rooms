@@ -14,8 +14,6 @@
   <section class="events">
     <h1>Coming up</h1>
 
-    <ol class="event-list">
-      <%= render partial: 'event', collection: presented_room.events_with_gaps %>
-    </ol>
+    <%= render_mustache 'rooms/event_list', presented_room.as_mustache_context %>
   </section>
 </article>

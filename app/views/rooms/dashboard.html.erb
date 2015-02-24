@@ -1,7 +1,7 @@
 <% content_for :title, room.title %>
 
 <section class="room-dashboard">
-  <%= render_mustache 'rooms/dashboard_block', presented_room.as_mustache_context %>
+  <%= render_mustache 'rooms/event_list', presented_room.as_mustache_context %>
 </section>
 
 <script type="text/javascript">
@@ -11,7 +11,7 @@ $(function(){
   new MeetingRooms.EventDashboard({
     el: $('.room-dashboard'),
     dataSource: '<%= room_path(room, format: 'json') %>',
-    template: 'rooms/_dashboard_block',
+    template: 'rooms/_event_list',
     delay: 5000
   });
 });
