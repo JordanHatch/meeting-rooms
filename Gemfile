@@ -10,6 +10,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 
+gem 'shared_mustache'
+
 gem "google-api-client", "~> 0.8.2"
 
 gem 'decent_exposure'
