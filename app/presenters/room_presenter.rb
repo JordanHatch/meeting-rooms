@@ -13,6 +13,11 @@ class RoomPresenter < SimpleDelegator
     list
   end
 
+  # TODO: can this be simplified to:
+  #
+  # - return both formatted and full timestamps in a nested object
+  # - DRY up with the JSON representation
+  #
   def as_mustache_context
     {
       schedule: events_with_gaps.map {|event|
