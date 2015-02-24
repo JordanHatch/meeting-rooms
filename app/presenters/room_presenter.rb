@@ -1,6 +1,7 @@
 require 'delegate'
 
 class RoomPresenter < SimpleDelegator
+  include TimeHelper
 
   def events_with_gaps
     list = room.current_and_future_events.inject([]) {|list, event|
@@ -10,6 +11,18 @@ class RoomPresenter < SimpleDelegator
     insert_initial_gap(list)
 
     list
+  end
+
+  def as_mustache_context
+    {
+      schedule: events_with_gaps.map {|event|
+        {
+          title: event.title,
+          start_at: format_time(event.start_at),
+          end_at: format_time(event.end_at),
+        }
+      }
+    }
   end
 
 private
