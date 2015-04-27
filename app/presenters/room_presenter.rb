@@ -21,11 +21,7 @@ class RoomPresenter < SimpleDelegator
   def as_mustache_context
     {
       schedule: events_with_gaps.map {|event|
-        {
-          title: event.title,
-          start_at: format_time(event.start_at),
-          end_at: format_time(event.end_at),
-        }
+        EventPresenter.new(event).as_json
       }
     }
   end
