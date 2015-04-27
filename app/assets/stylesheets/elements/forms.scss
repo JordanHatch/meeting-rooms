@@ -15,4 +15,12 @@
       @extend .button;
     }
   }
+
+  legend {
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    font-size: 19px;
+    width: 100%;
+    margin: 0 0 20px;
+  }
 }
