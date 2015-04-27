@@ -1,7 +1,7 @@
 <% content_for :title, room.title %>
 
 <section class="room-dashboard">
-  <%= render_mustache 'rooms/event_list', presented_room.as_mustache_context %>
+  <%= render_mustache 'rooms/event_list', room_presenter.as_mustache_context %>
 </section>
 
 <script type="text/javascript">

@@ -1,7 +1,6 @@
 require 'delegate'
 
 class RoomPresenter < SimpleDelegator
-  include TimeHelper
 
   def events_with_gaps
     list = room.current_and_future_events.inject([]) {|list, event|
@@ -30,7 +29,12 @@ class RoomPresenter < SimpleDelegator
     }
   end
 
+  def status_message
+    room.in_use? ? "In use" : "Not in use"
+  end
+
 private
+  include TimeHelper
 
   def room
     __getobj__

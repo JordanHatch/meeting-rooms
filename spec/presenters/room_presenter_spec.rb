@@ -71,4 +71,18 @@ RSpec.describe RoomPresenter do
     end
   end
 
+  describe '#status_message' do
+    it 'returns "In use" if the room.in_use? returns true' do
+      expect(room).to receive(:in_use?).and_return(true)
+
+      expect(subject.status_message).to eq('In use')
+    end
+
+    it 'returns "Not in use" if room.in_use? returns false' do
+      expect(room).to receive(:in_use?).and_return(false)
+
+      expect(subject.status_message).to eq('Not in use')
+    end
+  end
+
 end

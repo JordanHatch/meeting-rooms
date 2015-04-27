@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   expose(:rooms)
   expose(:room)
+  expose(:room_presenter) { RoomPresenter.new(room) }
 
   def create
     room.attributes = room_params
@@ -42,20 +43,26 @@ class RoomsController < ApplicationController
   end
 
 private
-  def presented_room
-    RoomPresenter.new(room)
-  end
-  helper_method :presented_room
+  # def room
+  #   RoomPresenter.new(room)
+  # end
+  # helper_method :room
 
   def rooms_in_use
-    Room.in_use
+    build_presenters(Room.in_use)
   end
   helper_method :rooms_in_use
 
   def rooms_not_in_use
-    Room.not_in_use
+    build_presenters(Room.not_in_use)
   end
   helper_method :rooms_not_in_use
+
+  def build_presenters(rooms)
+    rooms.map {|room|
+      RoomPresenter.new(room)
+    }
+  end
 
   def room_params
     params.require(:room).permit(:title, :short_title, :calendar_id)

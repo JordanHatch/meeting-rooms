@@ -7,7 +7,7 @@
         <li class="room">
           <%= link_to room_path(room) do %>
             <h3><%= room.title %></h3>
-            <span class="status"><%= room.in_use? ? "In use" : "Not in use" %></span>
+            <span class="status"><%= room.status_message %></span>
           <% end %>
         </li>
       <% end %>
