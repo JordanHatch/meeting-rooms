@@ -22,4 +22,18 @@ describe 'listing rooms', type: :feature do
       expect_presence_of_room(title: room.title, status: 'Not in use')
     end
   end
+
+  it 'includes the custom messages for each room' do
+    in_use = create(:room_in_use, custom_busy_message: 'Very busy')
+    not_in_use = create(:room, custom_free_message: 'Completely free')
+
+    visit '/rooms'
+
+    expect(page).to have_selector('li.room', count: 2)
+
+    expect_presence_of_room(title: in_use.title,
+                            status: in_use.custom_busy_message)
+    expect_presence_of_room(title: not_in_use.title,
+                            status: not_in_use.custom_free_message)
+  end
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Gap, :type => :model do
 
   subject {
-    Gap.new(start_at: Time.now, end_at: 10.minutes.from_now)
+    Gap.new(start_at: Time.now, end_at: 10.minutes.from_now, title: 'Not in use')
   }
 
   before do

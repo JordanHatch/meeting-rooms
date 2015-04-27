@@ -21,7 +21,7 @@ RSpec.describe RoomPresenter do
       Timecop.freeze
     end
 
-    it 'returns the list of current and future events' do
+    it 'returns list of current and future events, with a gap at the end' do
       expected = [
         create(:event, room: room,
                        start_at: 10.minutes.ago,
@@ -32,6 +32,7 @@ RSpec.describe RoomPresenter do
         create(:event, room: room,
                        start_at: 30.minutes.from_now,
                        end_at: 1.hour.from_now),
+        Gap.new(start_at: 1.hour.from_now, end_at: Time.now.end_of_day),
       ]
 
       expect(subject.events_with_gaps).to contain_exactly(*expected)
@@ -50,6 +51,7 @@ RSpec.describe RoomPresenter do
         create(:event, room: room,
                        start_at: 1.hour.from_now,
                        end_at: 2.hours.from_now),
+        Gap.new(start_at: 2.hours.from_now, end_at: Time.now.end_of_day),
       ]
 
       expect(subject.events_with_gaps).to contain_exactly(*expected)
@@ -61,13 +63,26 @@ RSpec.describe RoomPresenter do
         create(:event, room: room,
                        start_at: 10.minutes.from_now,
                        end_at: 30.minutes.from_now),
+        Gap.new(start_at: 30.minutes.from_now, end_at: Time.now.end_of_day),
       ]
 
       expect(subject.events_with_gaps).to contain_exactly(*expected)
     end
 
-    it 'returns an empty array if there are no events' do
-      expect(subject.events_with_gaps).to be_empty
+    it 'includes the custom free message in the gap when present' do
+      room = create(:room, custom_free_message: 'Free free free')
+      presenter = RoomPresenter.new(room)
+
+      first_gap = presenter.events_with_gaps.first
+      expect(first_gap.title).to eq(room.custom_free_message)
+    end
+
+    it 'returns a single gap to the end of the day if there are no events' do
+      expected = [
+        Gap.new(start_at: Time.now, end_at: Time.now.end_of_day),
+      ]
+
+      expect(subject.events_with_gaps).to contain_exactly(*expected)
     end
   end
 
@@ -82,6 +97,26 @@ RSpec.describe RoomPresenter do
       expect(room).to receive(:in_use?).and_return(false)
 
       expect(subject.status_message).to eq('Not in use')
+    end
+
+    describe 'given custom messages' do
+      let(:room) { create(:room,
+                          custom_free_message: 'Available',
+                          custom_busy_message: 'Not available') }
+
+      it 'returns the custom free message' do
+        presenter = RoomPresenter.new(room)
+
+        expect(room).to receive(:in_use?).and_return(false)
+        expect(presenter.status_message).to eq('Available')
+      end
+
+      it 'returns the custom busy message' do
+        presenter = RoomPresenter.new(room)
+
+        expect(room).to receive(:in_use?).and_return(true)
+        expect(presenter.status_message).to eq('Not available')
+      end
     end
   end
 

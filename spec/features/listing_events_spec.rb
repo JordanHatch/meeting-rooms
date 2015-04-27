@@ -74,4 +74,30 @@ describe 'listing events', type: :feature do
       expect(page).to have_content(event.title)
     end
   end
+
+  it 'uses the custom free message in gaps' do
+    room = create(:room, custom_free_message: 'Free!')
+    events = [
+      create(:future_event, room: room, start_at: 20.minutes.from_now,
+                                        end_at: 30.minutes.from_now),
+      # NOTE: 10 minute gap
+      create(:future_event, room: room, start_at: 40.minutes.from_now),
+    ]
+
+    visit "/rooms/#{room.to_param}"
+
+    save_page
+
+    within '.events li:nth-of-type(1)' do
+      expect(page).to have_content('Free!')
+    end
+
+    within '.events li:nth-of-type(3)' do
+      expect(page).to have_content('Free!')
+    end
+
+    within '.events li:nth-of-type(5)' do
+      expect(page).to have_content('Free!')
+    end
+  end
 end

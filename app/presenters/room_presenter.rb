@@ -8,6 +8,7 @@ class RoomPresenter < SimpleDelegator
       list << event
     }
     insert_initial_gap(list)
+    insert_end_of_day_gap(list)
 
     list
   end
@@ -30,7 +31,19 @@ class RoomPresenter < SimpleDelegator
   end
 
   def status_message
-    room.in_use? ? "In use" : "Not in use"
+    if room.in_use?
+      busy_message
+    else
+      free_message
+    end
+  end
+
+  def free_message
+    custom_free_message.present? ? custom_free_message : "Not in use"
+  end
+
+  def busy_message
+    custom_busy_message.present? ? custom_busy_message : "In use"
   end
 
 private
@@ -46,20 +59,35 @@ private
     duration = event.start_at - list.last.end_at
     return if duration == 0
 
-    list << Gap.new(
+    list << create_gap(
       start_at: list.last.end_at,
-      end_at: event.start_at
+      end_at: event.start_at,
     )
   end
 
   def insert_initial_gap(list)
-    unless list.any? && list.first.start_at > Time.now
-      return
+    if list.any? && list.first.start_at > Time.now
+      list.unshift create_gap(
+        start_at: Time.now,
+        end_at: list.first.start_at,
+      )
     end
+  end
 
-    list.unshift Gap.new(
-      start_at: Time.now,
-      end_at: list.first.start_at,
+  def insert_end_of_day_gap(list)
+    start_at = list.any? ? list.last.end_at : Time.now
+
+    list << create_gap(
+      start_at: start_at,
+      end_at: Time.now.end_of_day
+    )
+  end
+
+  def create_gap(start_at:, end_at:)
+    Gap.new(
+      start_at: start_at,
+      end_at: end_at,
+      title: free_message,
     )
   end
 
