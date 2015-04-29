@@ -29,7 +29,8 @@ class ApiFormattedEvent
   end
 
   def private?
-    response['visibility'].present? && response['visibility'] == 'private'
+    (response['visibility'].present? && response['visibility'] == 'private') ||
+      response['summary'].blank?
   end
 
 private

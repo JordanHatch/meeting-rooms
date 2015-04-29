@@ -133,6 +133,14 @@ RSpec.describe ApiFormattedEvent do
 
       expect(event).to be_private
     end
+
+    it 'returns true if the event summary is blank' do
+      event = ApiFormattedEvent.new(response.merge(
+        'summary' => '',
+      ))
+
+      expect(event).to be_private
+    end
   end
 
 end
