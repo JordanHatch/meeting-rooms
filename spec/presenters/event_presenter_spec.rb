@@ -9,8 +9,14 @@ RSpec.describe EventPresenter do
       expect(presenter.as_json).to eq(
         {
           title: event.title,
-          start_at: event.start_at.strftime('%l:%M%P'),
-          end_at: event.end_at.strftime('%l:%M%P'),
+          start_at: {
+            formatted: event.start_at.strftime('%l:%M%P'),
+            timestamp: event.start_at,
+          },
+          end_at: {
+            formatted: event.end_at.strftime('%l:%M%P'),
+            timestamp: event.end_at,
+          },
         }
       )
     end
@@ -27,6 +33,44 @@ RSpec.describe EventPresenter do
       event.private = true
 
       expect(presenter.title).to eq("Private event")
+    end
+  end
+
+  describe '#formatted_start_at' do
+    before do
+      Timecop.freeze
+    end
+
+    it 'returns the formatted time when not now' do
+      event.start_at = 10.minutes.from_now
+
+      expected = event.start_at.strftime('%l:%M%P')
+
+      expect(presenter.formatted_start_at).to eq(expected)
+    end
+
+    it 'returns "Now" when the time is equal to now' do
+      event.start_at = Time.now
+
+      expect(presenter.formatted_start_at).to eq("Now")
+    end
+  end
+
+  describe '#formatted_end_at' do
+    before do
+      Timecop.freeze
+    end
+
+    it 'returns the formatted time' do
+      expected = event.end_at.strftime('%l:%M%P')
+
+      expect(presenter.formatted_end_at).to eq(expected)
+    end
+
+    it 'returns "Until the end of the day" when the time is equal to the end of the day' do
+      event.end_at = Time.now.end_of_day
+
+      expect(presenter.formatted_end_at).to eq("Until the end of the day")
     end
   end
 

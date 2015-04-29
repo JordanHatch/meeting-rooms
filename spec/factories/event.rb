@@ -8,7 +8,7 @@ FactoryGirl.define do
       "Event #{n}"
     }
     creator "Jed Bartlet"
-    start_at { Time.now }
+    start_at { Time.now + 10.minutes }
     end_at { Time.now + 30.minutes }
     private false
 

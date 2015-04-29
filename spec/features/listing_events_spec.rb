@@ -8,7 +8,10 @@ describe 'listing events', type: :feature do
   end
 
   def expected_duration(start_at:, end_at:)
-    "#{start_at.strftime('%l:%M%P')} → #{end_at.strftime('%l:%M%P')}"
+    expected_start_at = start_at.is_a?(Time) ? start_at.strftime('%l:%M%P') : start_at
+    expected_end_at = end_at.is_a?(Time) ? end_at.strftime('%l:%M%P') : end_at
+
+    "#{expected_start_at} → #{expected_end_at}"
   end
 
   it 'shows a list of events for the room' do
@@ -22,7 +25,7 @@ describe 'listing events', type: :feature do
     within '.events li:nth-of-type(1)' do
       expect(page).to have_content(events[0].title)
       expect(page).to have_content(expected_duration(
-                                     start_at: events[0].start_at,
+                                     start_at: "Now",
                                      end_at: events[0].end_at))
     end
 
@@ -66,7 +69,7 @@ describe 'listing events', type: :feature do
     within '.events li:nth-of-type(1)' do
       expect(page).to have_content('Available')
       expect(page).to have_content(expected_duration(
-                                     start_at: Time.now,
+                                     start_at: "Now",
                                      end_at: event.start_at))
     end
 
