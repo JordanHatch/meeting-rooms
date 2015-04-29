@@ -11,7 +11,7 @@ class Room < ActiveRecord::Base
     current_events.any?
   end
 
-  def current_and_future_events
-    current_events + events.future
+  def current_and_future_events_today
+    current_events + events.future.today
   end
 end

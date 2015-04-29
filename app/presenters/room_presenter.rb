@@ -3,7 +3,7 @@ require 'delegate'
 class RoomPresenter < SimpleDelegator
 
   def events_with_gaps
-    list = room.current_and_future_events.inject([]) {|list, event|
+    list = room.current_and_future_events_today.inject([]) {|list, event|
       insert_gaps_for_event(list, event)
       list << event
     }
