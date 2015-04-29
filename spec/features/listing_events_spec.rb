@@ -86,8 +86,6 @@ describe 'listing events', type: :feature do
 
     visit "/rooms/#{room.to_param}"
 
-    save_page
-
     within '.events li:nth-of-type(1)' do
       expect(page).to have_content('Free!')
     end
@@ -98,6 +96,16 @@ describe 'listing events', type: :feature do
 
     within '.events li:nth-of-type(5)' do
       expect(page).to have_content('Free!')
+    end
+  end
+
+  it 'shows a different title when an event is private' do
+    create(:current_event, room: room, private: true)
+
+    visit "/rooms/#{room.to_param}"
+
+    within '.events li:nth-of-type(1)' do
+      expect(page).to have_content("Private event")
     end
   end
 end

@@ -16,4 +16,18 @@ RSpec.describe EventPresenter do
     end
   end
 
+  describe '#title' do
+    it 'returns the event title for a public event' do
+      event.private = false
+
+      expect(presenter.title).to eq(event.title)
+    end
+
+    it 'returns a message for a private event' do
+      event.private = true
+
+      expect(presenter.title).to eq("Private event")
+    end
+  end
+
 end
