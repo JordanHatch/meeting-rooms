@@ -11,6 +11,7 @@ class ApiFormattedEvent
       creator: creator,
       start_at: format_time(response['start']),
       end_at: format_time(response['end']),
+      private: private?,
     }
   end
 
@@ -25,6 +26,10 @@ class ApiFormattedEvent
   def declined?
     calendar_attendee &&
       calendar_attendee['responseStatus'] == 'declined'
+  end
+
+  def private?
+    response['visibility'].present? && response['visibility'] == 'private'
   end
 
 private

@@ -28,6 +28,7 @@ RSpec.describe ApiFormattedEvent do
         creator: 'Josh Lyman',
         start_at: Time.parse('2015-01-01T12:00:00+01:00'),
         end_at: Time.parse('2015-01-01T13:00:00+01:00'),
+        private: false,
       })
     end
 
@@ -105,6 +106,32 @@ RSpec.describe ApiFormattedEvent do
       ))
 
       expect(event).to_not be_declined
+    end
+  end
+
+  describe '#private?' do
+    it 'returns false if the visibility is not set' do
+      event = ApiFormattedEvent.new(response.merge(
+        'visibility' => nil,
+      ))
+
+      expect(event).to_not be_private
+    end
+
+    it 'returns false if the visibility is set to public' do
+      event = ApiFormattedEvent.new(response.merge(
+        'visibility' => 'public',
+      ))
+
+      expect(event).to_not be_private
+    end
+
+    it 'returns true if the visibility is set to "private"' do
+      event = ApiFormattedEvent.new(response.merge(
+        'visibility' => 'private',
+      ))
+
+      expect(event).to be_private
     end
   end
 
