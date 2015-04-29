@@ -23,30 +23,9 @@
   EventDashboard.prototype.renderEvents = function renderEvents(response){
     this.$el.mustache(
       this.template,
-      this.buildContext(response.room)
+      response.room
     );
   }
-
-  EventDashboard.prototype.buildContext = function buildContext(room) {
-    return {
-      schedule: $.map(
-        room.schedule,
-        $.proxy(this.formatEvent, this)
-      )
-    }
-  }
-
-  EventDashboard.prototype.formatEvent = function formatEvent(event) {
-    return {
-      title: event.title,
-      start_at: this.formatTime(event.start_at),
-      end_at: this.formatTime(event.end_at)
-    }
-  }
-
-  EventDashboard.prototype.formatTime = function formatTime(timestamp){
-    return moment(timestamp).format("h:mma");
-  }
-
+  
   MeetingRooms.EventDashboard = EventDashboard;
 }());
