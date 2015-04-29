@@ -17,4 +17,8 @@ class Gap
   def private?
     false
   end
+
+  def status
+    :available
+  end
 end

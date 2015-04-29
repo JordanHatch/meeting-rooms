@@ -17,6 +17,7 @@ RSpec.describe EventPresenter do
             formatted: event.end_at.strftime('%l:%M%P'),
             timestamp: event.end_at,
           },
+          status: 'in_use',
         }
       )
     end

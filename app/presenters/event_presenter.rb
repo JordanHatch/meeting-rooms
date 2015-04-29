@@ -13,6 +13,7 @@ class EventPresenter < SimpleDelegator
         formatted: formatted_end_at,
         timestamp: event.end_at,
       },
+      status: status,
     }
   end
 
@@ -38,6 +39,10 @@ class EventPresenter < SimpleDelegator
     else
       format_time(event.end_at)
     end
+  end
+
+  def status
+    event.status.to_s
   end
 
 private
