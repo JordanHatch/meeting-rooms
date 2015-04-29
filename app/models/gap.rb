@@ -13,4 +13,8 @@ class Gap
     start_at.to_i <=> other.start_at.to_i &&
       end_at.to_i <=> other.end_at.to_i
   end
+
+  def private?
+    false
+  end
 end

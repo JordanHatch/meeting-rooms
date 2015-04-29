@@ -35,4 +35,10 @@ RSpec.describe Gap, :type => :model do
     end
   end
 
+  describe '#private' do
+    it 'returns false' do
+      expect(subject).to_not be_private
+    end
+  end
+
 end
