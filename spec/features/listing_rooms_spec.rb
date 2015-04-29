@@ -19,7 +19,7 @@ describe 'listing rooms', type: :feature do
     end
 
     not_in_use.each do |room|
-      expect_presence_of_room(title: room.title, status: 'Not in use')
+      expect_presence_of_room(title: room.title, status: 'Available')
     end
   end
 

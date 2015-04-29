@@ -93,22 +93,22 @@ RSpec.describe RoomPresenter do
       expect(subject.status_message).to eq('In use')
     end
 
-    it 'returns "Not in use" if room.in_use? returns false' do
+    it 'returns "Available" if room.in_use? returns false' do
       expect(room).to receive(:in_use?).and_return(false)
 
-      expect(subject.status_message).to eq('Not in use')
+      expect(subject.status_message).to eq('Available')
     end
 
     describe 'given custom messages' do
       let(:room) { create(:room,
-                          custom_free_message: 'Available',
+                          custom_free_message: 'Custom available',
                           custom_busy_message: 'Not available') }
 
       it 'returns the custom free message' do
         presenter = RoomPresenter.new(room)
 
         expect(room).to receive(:in_use?).and_return(false)
-        expect(presenter.status_message).to eq('Available')
+        expect(presenter.status_message).to eq('Custom available')
       end
 
       it 'returns the custom busy message' do

@@ -35,7 +35,7 @@ class RoomPresenter < SimpleDelegator
   end
 
   def free_message
-    custom_free_message.present? ? custom_free_message : "Not in use"
+    custom_free_message.present? ? custom_free_message : "Available"
   end
 
   def busy_message
