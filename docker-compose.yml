@@ -1,0 +1,14 @@
+web:
+  build: .
+  links:
+   - db
+  ports:
+   - "5000:5000"
+  command: foreman start -p 5000
+  volumes:
+   - .:/app
+  environment:
+    USE_LINKED_DB: true
+
+db:
+  image: postgres

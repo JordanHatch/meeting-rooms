@@ -2,6 +2,10 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
+  <% if ENV['USE_LINKED_DB'].present? %>
+  host: db
+  username: postgres
+  <% end %>
 
 development:
   <<: *default
