@@ -2,7 +2,7 @@ require 'delegate'
 
 class RoomPresenter < SimpleDelegator
 
-  def events_with_gaps
+  def events_with_gaps(limit: nil)
     list = room.current_and_future_events_today.inject([]) {|list, event|
       insert_gaps_for_event(list, event)
       list << event
@@ -10,12 +10,12 @@ class RoomPresenter < SimpleDelegator
     insert_initial_gap(list)
     insert_end_of_day_gap(list)
 
-    list
+    limit.present? ? list.first(limit.to_i) : list
   end
 
-  def as_mustache_context
+  def as_mustache_context(limit: nil)
     {
-      schedule: events_with_gaps.map {|event|
+      schedule: events_with_gaps(limit: limit).map {|event|
         EventPresenter.new(event).as_json
       }
     }

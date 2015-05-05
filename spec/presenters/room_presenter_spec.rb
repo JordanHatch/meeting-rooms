@@ -84,6 +84,22 @@ RSpec.describe RoomPresenter do
 
       expect(presenter.events_with_gaps).to contain_exactly(*expected)
     end
+
+    it 'limits the returned array when limit specified' do
+      create(:event, room: room,
+                     start_at: 10.minutes.ago,
+                     end_at: 10.minutes.from_now)
+      create(:event, room: room,
+                     start_at: 10.minutes.from_now,
+                     end_at: 30.minutes.from_now)
+      create(:event, room: room,
+                     start_at: 30.minutes.from_now,
+                     end_at: 1.hour.from_now)
+
+      output = presenter.events_with_gaps(limit: 2)
+
+      expect(output.length).to eq(2)
+    end
   end
 
   describe '#status_message' do
@@ -117,6 +133,14 @@ RSpec.describe RoomPresenter do
         expect(room).to receive(:in_use?).and_return(true)
         expect(presenter.status_message).to eq('Not available')
       end
+    end
+  end
+
+  describe '#as_mustache_context' do
+    it 'passes the limit argument through to events_with_gaps' do
+      expect(presenter).to receive(:events_with_gaps).with(limit: 5).and_return([])
+
+      presenter.as_mustache_context(limit: 5)
     end
   end
 
