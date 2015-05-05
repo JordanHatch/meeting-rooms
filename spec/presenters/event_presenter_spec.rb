@@ -69,7 +69,7 @@ RSpec.describe EventPresenter do
     end
 
     it 'returns "Until the end of the day" when the time is equal to the end of the day' do
-      event.end_at = Time.now.end_of_day
+      event.end_at = Time.zone.now.end_of_day
 
       expect(presenter.formatted_end_at).to eq("Until the end of the day")
     end
