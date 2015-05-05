@@ -8,8 +8,8 @@ describe 'listing events', type: :feature do
   end
 
   def expected_duration(start_at:, end_at:)
-    expected_start_at = start_at.is_a?(Time) ? start_at.strftime('%l:%M%P') : start_at
-    expected_end_at = end_at.is_a?(Time) ? end_at.strftime('%l:%M%P') : end_at
+    expected_start_at = start_at.is_a?(Time) ? start_at.strftime('%k:%M') : start_at
+    expected_end_at = end_at.is_a?(Time) ? end_at.strftime('%k:%M') : end_at
 
     "#{expected_start_at} → #{expected_end_at}"
   end

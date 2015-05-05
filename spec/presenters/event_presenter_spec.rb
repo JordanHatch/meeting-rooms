@@ -10,11 +10,11 @@ RSpec.describe EventPresenter do
         {
           title: event.title,
           start_at: {
-            formatted: event.start_at.strftime('%l:%M%P'),
+            formatted: event.start_at.strftime('%k:%M'),
             timestamp: event.start_at,
           },
           end_at: {
-            formatted: event.end_at.strftime('%l:%M%P'),
+            formatted: event.end_at.strftime('%k:%M'),
             timestamp: event.end_at,
           },
           status: 'in_use',
@@ -45,7 +45,7 @@ RSpec.describe EventPresenter do
     it 'returns the formatted time when not now' do
       event.start_at = 10.minutes.from_now
 
-      expected = event.start_at.strftime('%l:%M%P')
+      expected = event.start_at.strftime('%k:%M')
 
       expect(presenter.formatted_start_at).to eq(expected)
     end
@@ -63,7 +63,7 @@ RSpec.describe EventPresenter do
     end
 
     it 'returns the formatted time' do
-      expected = event.end_at.strftime('%l:%M%P')
+      expected = event.end_at.strftime('%k:%M')
 
       expect(presenter.formatted_end_at).to eq(expected)
     end
