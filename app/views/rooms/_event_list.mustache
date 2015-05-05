@@ -1,8 +1,12 @@
 <ol class="event-list">
   {{#schedule}}
     <li class="{{ status }}">
+      <div class="time">
+        <span class="start-at">{{ start_at.formatted }}</span>
+        <span class="arrow">&rarr;</span>
+        <span class="end-at">{{ end_at.formatted }}</span>
+      </div>
       <h2>{{ title }}</h2>
-      {{ start_at.formatted }} &rarr; {{ end_at.formatted }}
     </li>
   {{/schedule}}
 </ol>
