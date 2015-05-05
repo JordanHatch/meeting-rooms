@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe RoomPresenter do
 
   let(:room) { create(:room) }
-  subject { RoomPresenter.new(room) }
+  let(:presenter) { RoomPresenter.new(room) }
 
   describe '#method_missing' do
     it 'invokes the requested method on the room if it exists' do
       expect(room).to receive(:title).and_return('foo')
-      expect(subject.title).to eq('foo')
+      expect(presenter.title).to eq('foo')
     end
 
     it 'raises an exception if the method does not exist' do
-      expect{ subject.foo }.to raise_error(NoMethodError)
+      expect{ presenter.foo }.to raise_error(NoMethodError)
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe RoomPresenter do
         Gap.new(start_at: 1.hour.from_now, end_at: Time.now.end_of_day),
       ]
 
-      expect(subject.events_with_gaps).to contain_exactly(*expected)
+      expect(presenter.events_with_gaps).to contain_exactly(*expected)
     end
 
     it "inserts gaps between events that don't follow on from each other" do
@@ -54,7 +54,7 @@ RSpec.describe RoomPresenter do
         Gap.new(start_at: 2.hours.from_now, end_at: Time.now.end_of_day),
       ]
 
-      expect(subject.events_with_gaps).to contain_exactly(*expected)
+      expect(presenter.events_with_gaps).to contain_exactly(*expected)
     end
 
     it 'inserts a gap at the start if there are no current events' do
@@ -66,7 +66,7 @@ RSpec.describe RoomPresenter do
         Gap.new(start_at: 30.minutes.from_now, end_at: Time.now.end_of_day),
       ]
 
-      expect(subject.events_with_gaps).to contain_exactly(*expected)
+      expect(presenter.events_with_gaps).to contain_exactly(*expected)
     end
 
     it 'includes the custom free message in the gap when present' do
@@ -82,7 +82,7 @@ RSpec.describe RoomPresenter do
         Gap.new(start_at: Time.now, end_at: Time.now.end_of_day),
       ]
 
-      expect(subject.events_with_gaps).to contain_exactly(*expected)
+      expect(presenter.events_with_gaps).to contain_exactly(*expected)
     end
   end
 
@@ -90,13 +90,13 @@ RSpec.describe RoomPresenter do
     it 'returns "In use" if the room.in_use? returns true' do
       expect(room).to receive(:in_use?).and_return(true)
 
-      expect(subject.status_message).to eq('In use')
+      expect(presenter.status_message).to eq('In use')
     end
 
     it 'returns "Available" if room.in_use? returns false' do
       expect(room).to receive(:in_use?).and_return(false)
 
-      expect(subject.status_message).to eq('Available')
+      expect(presenter.status_message).to eq('Available')
     end
 
     describe 'given custom messages' do
