@@ -114,4 +114,91 @@ RSpec.describe Room, :type => :model do
       expect(room.errors).to have_key(:custom_colour)
     end
   end
+
+  describe '#events_with_gaps' do
+    let(:room) { create(:room) }
+
+    before do
+      Timecop.freeze
+    end
+
+    it 'returns list of current and future events, with a gap at the end' do
+      expected = [
+        create(:event, room: room,
+                       start_at: 10.minutes.ago,
+                       end_at: 10.minutes.from_now),
+        create(:event, room: room,
+                       start_at: 10.minutes.from_now,
+                       end_at: 30.minutes.from_now),
+        create(:event, room: room,
+                       start_at: 30.minutes.from_now,
+                       end_at: 1.hour.from_now),
+        Gap.new(start_at: 1.hour.from_now, end_at: Time.now.end_of_day),
+      ]
+
+      expect(room.events_with_gaps).to contain_exactly(*expected)
+    end
+
+    it "inserts gaps between events that don't follow on from each other" do
+      expected = [
+        create(:event, room: room,
+                       start_at: 10.minutes.ago,
+                       end_at: 10.minutes.from_now),
+        Gap.new(start_at: 10.minutes.from_now, end_at: 30.minutes.from_now),
+        create(:event, room: room,
+                       start_at: 30.minutes.from_now,
+                       end_at: 50.minutes.from_now),
+        Gap.new(start_at: 50.minutes.from_now, end_at: 1.hour.from_now),
+        create(:event, room: room,
+                       start_at: 1.hour.from_now,
+                       end_at: 2.hours.from_now),
+        Gap.new(start_at: 2.hours.from_now, end_at: Time.now.end_of_day),
+      ]
+
+      expect(room.events_with_gaps).to contain_exactly(*expected)
+    end
+
+    it 'inserts a gap at the start if there are no current events' do
+      expected = [
+        Gap.new(start_at: Time.now, end_at: 10.minutes.from_now),
+        create(:event, room: room,
+                       start_at: 10.minutes.from_now,
+                       end_at: 30.minutes.from_now),
+        Gap.new(start_at: 30.minutes.from_now, end_at: Time.now.end_of_day),
+      ]
+
+      expect(room.events_with_gaps).to contain_exactly(*expected)
+    end
+
+    it 'includes the custom free message in the gap when present' do
+      room = create(:room, custom_free_message: 'Free free free')
+
+      first_gap = room.events_with_gaps.first
+      expect(first_gap.title).to eq(room.custom_free_message)
+    end
+
+    it 'returns a single gap to the end of the day if there are no events' do
+      expected = [
+        Gap.new(start_at: Time.now, end_at: Time.now.end_of_day),
+      ]
+
+      expect(room.events_with_gaps).to contain_exactly(*expected)
+    end
+
+    it 'limits the returned array when limit specified' do
+      create(:event, room: room,
+                     start_at: 10.minutes.ago,
+                     end_at: 10.minutes.from_now)
+      create(:event, room: room,
+                     start_at: 10.minutes.from_now,
+                     end_at: 30.minutes.from_now)
+      create(:event, room: room,
+                     start_at: 30.minutes.from_now,
+                     end_at: 1.hour.from_now)
+
+      output = room.events_with_gaps(limit: 2)
+
+      expect(output.length).to eq(2)
+    end
+  end
 end
