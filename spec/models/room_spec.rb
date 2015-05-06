@@ -50,4 +50,37 @@ RSpec.describe Room, :type => :model do
       expect(room).to_not be_in_use
     end
   end
+
+  describe 'short_title' do
+    let(:attributes) { attributes_for(:room) }
+
+    it 'is valid with a short string' do
+      room = Room.new(attributes.merge(short_title: 'A123'))
+
+      expect(room).to be_valid
+    end
+
+    it 'is invalid with a non-unique value' do
+      create(:room, short_title: 'A123')
+
+      room = Room.new(attributes.merge(short_title: 'A123'))
+
+      expect(room).to_not be_valid
+      expect(room.errors).to have_key(:short_title)
+    end
+
+    it 'is invalid when longer than four characters' do
+      room = Room.new(attributes.merge(short_title: '12345'))
+
+      expect(room).to_not be_valid
+      expect(room.errors).to have_key(:short_title)
+    end
+
+    it 'is invalid with spaces' do
+      room = Room.new(attributes.merge(short_title: 'A 12'))
+
+      expect(room).to_not be_valid
+      expect(room.errors).to have_key(:short_title)
+    end
+  end
 end

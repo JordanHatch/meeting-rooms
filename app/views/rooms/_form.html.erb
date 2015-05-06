@@ -1,8 +1,8 @@
 <%= semantic_form_for room do |f| %>
   <%= f.inputs do %>
     <%= f.input :title %>
-    <%= f.input :short_title %>
-    <%= f.input :calendar_id, label: "Google Calendar ID" %>
+    <%= f.input :short_title, input_html: { size: 4 } %>
+    <%= f.input :calendar_id, required: true %>
   <% end %>
 
   <%= f.inputs "Custom messages" do %>

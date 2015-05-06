@@ -21,4 +21,11 @@
 
 en:
   formtastic:
-    cancel: 'Cancel'
+    actions:
+      cancel: 'Cancel'
+    labels:
+      room:
+        calendar_id: "Google Calendar ID"
+    hints:
+      room:
+        short_title: "The room number, or another short identifier. Used in web addresses and on dashboards."

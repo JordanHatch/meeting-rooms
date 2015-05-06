@@ -3,6 +3,9 @@ class Room < ActiveRecord::Base
   has_many :current_events, -> { current }, class_name: 'Event'
 
   validates :title, :short_title, :calendar_id, presence: true
+  validates :short_title, uniqueness: true,
+                          length: { maximum: 4 },
+                          format: { with: /\A[^ ]+\z/ }
 
   scope :in_use, -> { joins(:current_events) }
   scope :not_in_use, -> { where.not(id: in_use) }
