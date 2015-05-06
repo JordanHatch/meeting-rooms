@@ -2,8 +2,8 @@
   <%= render partial: 'room_list', locals: { rooms: rooms_not_in_use, label: 'Available' } %>
   <%= render partial: 'room_list', locals: { rooms: rooms_in_use, label: 'In use' } %>
 
-  <ul class="actions">
-    <li><%= link_to 'Add a new room', new_room_path(room) %></li>
+  <ul class="actions actions-block">
+    <li class="requires-authentication"><%= link_to 'Add a new room', new_room_path(room) %></li>
     <li><%= link_to 'Import all events', import_all_rooms_path, method: :post %></li>
   </ul>
 </section>

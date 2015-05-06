@@ -6,7 +6,7 @@
       <ul>
         <li><%= link_to 'Full screen view', dashboard_room_path(room) %></li>
         <li><%= link_to 'Import events', import_room_path(room), method: :post %></li>
-        <li><%= link_to 'Edit details', edit_room_path(room) %></li>
+        <li class="requires-authentication"><%= link_to 'Edit details', edit_room_path(room) %></li>
       </ul>
     </nav>
   </header>

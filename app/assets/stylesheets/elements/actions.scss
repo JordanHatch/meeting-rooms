@@ -1,14 +1,18 @@
 .actions {
-  ul {
-    li {
-      display: inline;
-      font-size: 14px;
-      margin: 0 0 0 25px;
+  li {
+    display: inline;
+    font-size: 14px;
+    margin: 0 0 0 25px;
 
-      a {
-        color: #888;
-        text-decoration: none;
-      }
+    a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    &.requires-authentication a {
+      background: no-repeat right center;
+      @include background-image-retina('icon_lock', 'png', 18px, 18px);
+      padding-right: 22px;
     }
   }
 
@@ -17,8 +21,18 @@
     padding: 20px;
     margin: 40px 0;
 
-    li a {
-      @extend .button;
+    li {
+      margin: 0;
+      display: inline-block;
+
+      a {
+        @extend .button;
+      }
+
+      &.requires-authentication a {
+        padding-right: 28px;
+        background-position: 96% center;
+      }
     }
   }
 }

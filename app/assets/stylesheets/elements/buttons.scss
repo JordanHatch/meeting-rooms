@@ -1,7 +1,7 @@
 .button {
   border: 1px solid #666;
   border-bottom-width: 3px;
-  background: #fff;
+  background-color: #fff;
   color: #000;
   font-size: 16px;
   padding: 5px 9px;
@@ -12,7 +12,7 @@
   vertical-align: middle;
 
   &:hover {
-    background: #f8f8f8;
+    background-color: #f8f8f8;
     border-color: #444;
   }
   &:active {
