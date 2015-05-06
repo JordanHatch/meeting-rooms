@@ -25,13 +25,4 @@ RSpec.describe RoomPresenter do
       expect(presenter.status_message).to eq('Example')
     end
   end
-
-  describe '#as_mustache_context' do
-    it 'passes the limit argument through to events_with_gaps' do
-      expect(presenter).to receive(:events_with_gaps).with(limit: 5).and_return([])
-
-      presenter.as_mustache_context(limit: 5)
-    end
-  end
-
 end

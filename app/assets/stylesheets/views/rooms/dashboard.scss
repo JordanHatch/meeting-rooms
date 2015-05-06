@@ -2,8 +2,6 @@
 
   &:not(.with-custom-colour) ol li {
     &.available {
-      $available_color: #61bd00;
-
       border-color: $available_color;
       &:first-of-type {
         border-color: $available_color;
@@ -18,8 +16,6 @@
       }
     }
     &.in_use {
-      $unavailable_color: #be1900;
-
       border-color: $unavailable_color;
       &:first-of-type {
         border-color: $unavailable_color;
@@ -36,30 +32,17 @@
   }
 
   ol {
+    @extend .dashboard-list;
+
     padding: 15px 25px;
 
+    h2 {
+      @extend .right;
+    }
+
     li {
-      background: #222;
-      padding: 0;
-      margin: 0 0 15px;
-      font-size: 21px;
-      overflow: auto;
-
-      h2 {
-        float: left;
-        font-size: 32px;
-        margin-bottom: 0;
-        padding: 20px 30px 0;
-      }
-
       .time {
-        float: left;
-        background: #bbb;
-        width: 120px;
-        padding: 20px 16px 0;
-        font-size: 32px;
-        height: 70px;
-        text-align: center;
+        @extend .left;
       }
       .arrow, .end-at {
         display: none;
@@ -96,4 +79,27 @@
     }
   }
 
+}
+
+.rooms-collection-dashboard {
+  ol {
+    @extend .dashboard-list;
+
+    h2 {
+      @extend .left;
+      margin-bottom: 0;
+    }
+
+    .status-message {
+      @extend .right;
+    }
+
+    .available h2 {
+      background: $available_color;
+    }
+    .in_use h2 {
+      background: $unavailable_color;
+    }
+
+  }
 }

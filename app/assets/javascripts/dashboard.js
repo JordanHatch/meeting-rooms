@@ -23,9 +23,9 @@
   EventDashboard.prototype.renderEvents = function renderEvents(response){
     this.$el.mustache(
       this.template,
-      response.room
+      response
     );
   }
-  
+
   MeetingRooms.EventDashboard = EventDashboard;
 }());

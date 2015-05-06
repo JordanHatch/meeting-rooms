@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :rooms do
     collection do
+      get :dashboard, to: 'rooms#collection_dashboard'
       post :import_all
     end
 

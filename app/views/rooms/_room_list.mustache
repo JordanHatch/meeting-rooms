@@ -1,0 +1,10 @@
+<ol class="room-list">
+  {{#rooms}}
+    <li class="{{ status.value }}">
+      <a href="{{ url }}">
+        <h2>{{ short_title }}</h2>
+        <div class="status-message">{{ status.message }}</div>
+      </a>
+    </li>
+  {{/rooms}}
+</ol>

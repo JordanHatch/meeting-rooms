@@ -9,13 +9,15 @@
 
 @import 'formtastic';
 
-@import 'layouts/full';
-@import 'layouts/dashboard';
-
 @import 'elements/actions';
 @import 'elements/buttons';
+@import 'elements/colors';
+@import 'elements/dashboards';
 @import 'elements/forms';
 @import 'elements/messages';
+
+@import 'layouts/full';
+@import 'layouts/dashboard';
 
 @import 'views/rooms/index';
 @import 'views/rooms/show';

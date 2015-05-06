@@ -1,0 +1,20 @@
+<% content_for :title, "Meeting rooms" %>
+
+<section class="rooms-collection-dashboard">
+  <%= render_mustache 'rooms/room_list', rooms.as_json %>
+</section>
+
+<script type="text/javascript">
+<!--
+
+$(function(){
+  new MeetingRooms.EventDashboard({
+    el: $('.rooms-collection-dashboard'),
+    dataSource: '<%= rooms_path(format: 'json') %>',
+    template: 'rooms/_room_list',
+    delay: 5000
+  });
+});
+
+-->
+</script>

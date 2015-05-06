@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
-  expose(:rooms)
   expose(:room, finder: :find_by_short_title)
-  expose(:room_presenter) { RoomPresenter.new(room) }
+  expose(:room_presenter) { RoomPresenter.new(room, options) }
 
   before_filter :authenticate!, only: [:new, :create, :edit, :update]
 
@@ -44,12 +43,11 @@ class RoomsController < ApplicationController
     render layout: 'dashboard'
   end
 
-private
-  # def room
-  #   RoomPresenter.new(room)
-  # end
-  # helper_method :room
+  def collection_dashboard
+    render layout: 'dashboard'
+  end
 
+private
   def rooms_in_use
     build_presenters(Room.in_use)
   end
@@ -60,14 +58,21 @@ private
   end
   helper_method :rooms_not_in_use
 
+  def rooms
+    build_presenters(Room.all)
+  end
+  helper_method :rooms
+
   def build_presenters(rooms)
-    rooms.map {|room|
-      RoomPresenter.new(room)
-    }
+    RoomCollectionPresenter.new(rooms, options)
   end
 
   def room_params
     params.require(:room).permit(:title, :short_title, :calendar_id,
                             :custom_free_message, :custom_colour)
+  end
+
+  def options
+    params.slice(:limit)
   end
 end
