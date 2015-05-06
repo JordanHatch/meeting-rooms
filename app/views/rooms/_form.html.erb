@@ -8,7 +8,10 @@
     <%= f.input :calendar_id, required: true %>
   <% end %>
 
-  <%= f.inputs "Custom messages" do %>
+  <%= f.inputs "Custom display settings" do %>
+    <%= f.input :custom_colour, input_html: {
+                                  maxlength: 7 # allow for preceding hash character
+                                } %>
     <%= f.input :custom_free_message %>
     <%= f.input :custom_busy_message %>
   <% end %>

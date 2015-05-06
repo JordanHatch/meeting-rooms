@@ -6,9 +6,13 @@ class Room < ActiveRecord::Base
   validates :short_title, uniqueness: true,
                           length: { maximum: 4 },
                           format: { with: /\A[^ ]+\z/ }
+  validates :custom_colour, length: { maximum: 6 },
+                            format: { with: /\A[A-Za-z0-9]+\z/, allow_blank: true }
 
   scope :in_use, -> { joins(:current_events) }
   scope :not_in_use, -> { where.not(id: in_use) }
+
+  before_validation :strip_leading_hash_from_custom_colour
 
   def in_use?
     current_events.any?
@@ -20,5 +24,12 @@ class Room < ActiveRecord::Base
 
   def to_param
     short_title
+  end
+
+private
+  def strip_leading_hash_from_custom_colour
+    if custom_colour.present?
+      custom_colour.sub!(/\A#/, '')
+    end
   end
 end

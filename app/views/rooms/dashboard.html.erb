@@ -1,8 +1,19 @@
 <% content_for :title, room.title %>
 
-<section class="room-dashboard">
+<section class="room-dashboard <% if room.custom_colour.present? %>with-custom-colour<% end %>">
   <%= render_mustache 'rooms/event_list', room_presenter.as_mustache_context(limit: 3) %>
 </section>
+
+<% if room.custom_colour.present? %>
+  <style type="text/css">
+  .room-dashboard ol li:first-of-type {
+    border-color: #<%= room.custom_colour %>;
+  }
+  .room-dashboard ol li .time {
+    background: #<%= room.custom_colour %>;
+  }
+  </style>
+<% end %>
 
 <script type="text/javascript">
 <!--

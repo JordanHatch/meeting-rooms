@@ -83,4 +83,35 @@ RSpec.describe Room, :type => :model do
       expect(room.errors).to have_key(:short_title)
     end
   end
+
+  describe 'custom colour' do
+    let(:attributes) { attributes_for(:room) }
+
+    it 'is valid with a hex colour code' do
+      room = Room.new(attributes.merge(custom_colour: 'eeeeee'))
+
+      expect(room).to be_valid
+    end
+
+    it 'strips the hash character before validation' do
+      room = Room.new(attributes.merge(custom_colour: '#eeeeee'))
+
+      expect(room).to be_valid
+      expect(room.custom_colour).to eq('eeeeee')
+    end
+
+    it 'is invalid when longer than six characters' do
+      room = Room.new(attributes.merge(custom_colour: '83wr8eufj'))
+
+      expect(room).to_not be_valid
+      expect(room.errors).to have_key(:custom_colour)
+    end
+
+    it 'permits only alphanumeric characters' do
+      room = Room.new(attributes.merge(custom_colour: '8@">aa'))
+
+      expect(room).to_not be_valid
+      expect(room.errors).to have_key(:custom_colour)
+    end
+  end
 end

@@ -1,5 +1,40 @@
 .room-dashboard {
 
+  &:not(.with-custom-colour) ol li {
+    &.available {
+      $available_color: #61bd00;
+
+      border-color: $available_color;
+      &:first-of-type {
+        border-color: $available_color;
+
+        .time {
+          background: none;
+        }
+      }
+
+      .time {
+        background: $available_color;
+      }
+    }
+    &.in_use {
+      $unavailable_color: #be1900;
+
+      border-color: $unavailable_color;
+      &:first-of-type {
+        border-color: $unavailable_color;
+
+        .time {
+          background: none;
+        }
+      }
+
+      .time {
+        background: $unavailable_color;
+      }
+    }
+  }
+
   ol {
     padding: 15px 25px;
 
@@ -15,31 +50,6 @@
         font-size: 32px;
         margin-bottom: 0;
         padding: 20px 30px 0;
-      }
-
-      &.available {
-        $available_color: #61bd00;
-
-        border-color: $available_color;
-        &:first-of-type {
-          border-color: $available_color;
-        }
-
-        .time {
-          background: $available_color;
-        }
-      }
-      &.in_use {
-        $unavailable_color: #be1900;
-
-        border-color: $unavailable_color;
-        &:first-of-type {
-          border-color: $unavailable_color;
-        }
-
-        .time {
-          background: $unavailable_color;
-        }
       }
 
       .time {
@@ -71,8 +81,8 @@
 
         .time {
           float: none;
-          text-align: left;
           background: none;
+          text-align: left;
           width: auto;
           height: auto;
           padding: 0;

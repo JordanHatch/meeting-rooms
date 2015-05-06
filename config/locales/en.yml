@@ -29,3 +29,4 @@ en:
     hints:
       room:
         short_title: "The room number, or another short identifier. Used in web addresses and on dashboards."
+        custom_colour: "The Hex code for an alternative colour to use on the dashboard"

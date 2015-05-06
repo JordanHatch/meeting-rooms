@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427065309) do
+ActiveRecord::Schema.define(version: 20150506100207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150427065309) do
     t.string   "calendar_id"
     t.string   "custom_free_message"
     t.string   "custom_busy_message"
+    t.string   "custom_colour"
   end
 
 end
