@@ -20,6 +20,7 @@ gem 'timecop'
 
 gem 'puma'
 gem 'foreman'
+gem 'whenever', require: false
 
 group :production do
   gem 'rails_12factor'
