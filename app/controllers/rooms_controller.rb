@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   expose(:rooms)
-  expose(:room)
+  expose(:room, finder: :find_by_short_title)
   expose(:room_presenter) { RoomPresenter.new(room) }
 
   before_filter :authenticate!, only: [:new, :create, :edit, :update]

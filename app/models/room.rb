@@ -17,4 +17,8 @@ class Room < ActiveRecord::Base
   def current_and_future_events_today
     current_events + events.future.today
   end
+
+  def to_param
+    short_title
+  end
 end
