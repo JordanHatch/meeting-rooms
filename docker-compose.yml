@@ -9,6 +9,7 @@ web:
    - .:/app
   environment:
     USE_LINKED_DB: true
+  env_file: .env
 
 db:
   image: postgres
