@@ -3,6 +3,8 @@ class RoomsController < ApplicationController
   expose(:room)
   expose(:room_presenter) { RoomPresenter.new(room) }
 
+  before_filter :authenticate!, only: [:new, :create, :edit, :update]
+
   def create
     room.attributes = room_params
     if room.save
