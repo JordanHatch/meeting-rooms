@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/dashboards/rooms/:id' => 'legacy_redirects#room_dashboard'
+
   root to: redirect('/rooms')
 end
