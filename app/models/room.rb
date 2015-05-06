@@ -30,10 +30,6 @@ class Room < ActiveRecord::Base
     custom_free_message.present? ? custom_free_message : "Available"
   end
 
-  def busy_message
-    custom_busy_message.present? ? custom_busy_message : "In use"
-  end
-
   def events_with_gaps(limit: nil)
     list = current_and_future_events_today.inject([]) {|list, event|
       insert_gaps_for_event(list, event)

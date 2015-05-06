@@ -11,19 +11,7 @@ class RoomPresenter < SimpleDelegator
   end
 
   def status_message
-    if room.in_use?
-      busy_message
-    else
-      free_message
-    end
-  end
-
-  def free_message
-    custom_free_message.present? ? custom_free_message : "Available"
-  end
-
-  def busy_message
-    custom_busy_message.present? ? custom_busy_message : "In use"
+    events_with_gaps.first.title
   end
 
 private

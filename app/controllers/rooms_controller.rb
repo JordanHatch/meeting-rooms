@@ -68,7 +68,6 @@ private
 
   def room_params
     params.require(:room).permit(:title, :short_title, :calendar_id,
-                            :custom_free_message, :custom_busy_message,
-                            :custom_colour)
+                            :custom_free_message, :custom_colour)
   end
 end

@@ -17,36 +17,12 @@ RSpec.describe RoomPresenter do
   end
 
   describe '#status_message' do
-    it 'returns "In use" if the room.in_use? returns true' do
-      expect(room).to receive(:in_use?).and_return(true)
+    it 'returns the title of the first event or gap' do
+      expect(room).to receive(:events_with_gaps).and_return([
+        build(:event, title: 'Example')
+      ])
 
-      expect(presenter.status_message).to eq('In use')
-    end
-
-    it 'returns "Available" if room.in_use? returns false' do
-      expect(room).to receive(:in_use?).and_return(false)
-
-      expect(presenter.status_message).to eq('Available')
-    end
-
-    describe 'given custom messages' do
-      let(:room) { create(:room,
-                          custom_free_message: 'Custom available',
-                          custom_busy_message: 'Not available') }
-
-      it 'returns the custom free message' do
-        presenter = RoomPresenter.new(room)
-
-        expect(room).to receive(:in_use?).and_return(false)
-        expect(presenter.status_message).to eq('Custom available')
-      end
-
-      it 'returns the custom busy message' do
-        presenter = RoomPresenter.new(room)
-
-        expect(room).to receive(:in_use?).and_return(true)
-        expect(presenter.status_message).to eq('Not available')
-      end
+      expect(presenter.status_message).to eq('Example')
     end
   end
 
