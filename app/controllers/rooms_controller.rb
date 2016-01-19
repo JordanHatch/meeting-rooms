@@ -1,6 +1,5 @@
 class RoomsController < ApplicationController
   expose(:room, finder: :find_by_short_title)
-  expose(:room_presenter) { RoomPresenter.new(room, options) }
 
   before_filter :authenticate!, only: [:new, :create, :edit, :update]
 
@@ -62,6 +61,11 @@ private
     build_presenters(Room.all)
   end
   helper_method :rooms
+
+  def room_presenter(additional_options = {})
+    RoomPresenter.new(room, options.merge(additional_options))
+  end
+  helper_method :room_presenter
 
   def build_presenters(rooms)
     RoomCollectionPresenter.new(rooms, options)

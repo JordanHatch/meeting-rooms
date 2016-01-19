@@ -1,7 +1,7 @@
 <% content_for :title, room.title %>
 
 <section class="room-dashboard <% if room.custom_colour.present? %>with-custom-colour<% end %>">
-  <%= render_mustache 'rooms/event_list', room_presenter.as_json %>
+  <%= render_mustache 'rooms/event_list', room_presenter(limit: 3).as_json %>
 </section>
 
 <% if room.custom_colour.present? %>
