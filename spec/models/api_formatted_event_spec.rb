@@ -42,8 +42,8 @@ RSpec.describe ApiFormattedEvent do
         }
       ))
 
-      expect(event.attributes[:start_at]).to eq(Time.parse('2015-01-01T00:00:00+00:00'))
-      expect(event.attributes[:end_at]).to eq(Time.parse('2015-01-02T00:00:00+00:00'))
+      expect(event.attributes[:start_at]).to eq(Time.parse('2015-01-01T00:00:00'))
+      expect(event.attributes[:end_at]).to eq(Time.parse('2015-01-02T00:00:00'))
     end
 
     it 'gracefully handles a missing event creator' do
